@@ -4,12 +4,11 @@ the evolution of computer vision over the years
 ![](Images/abst.PNG)
 
 # Dependencies
-
--Python ( I used 3.8.2)
--opencv
--imutils
--stmplib 
--Flask
+- Python ( I used 3.8.2)
+- opencv
+- imutils
+- stmplib 
+- Flask
 
 # AI-powered-surveillance-using-raspberry-pi
 this projet aims to automate surveillance  using the Raspberry Pi computer and its camera module . This project was inspired by other older works and it's a push towards the AI-powered surveillance as computer vision and IoT are strongly emerging.
@@ -86,6 +85,8 @@ Here's how the security alert looks like :
 # How to run the project :
 
 First of all code is adapted to the use of a usb camera , so if you're using the pi's camera module you have to make some small changes . 
+I used the Raspberry Pi 4 modeb B with 2GB of RAM .
+To install OpenCV on the pi , please refer Adrian's tutorial (pyimagesearch.com)
 To control the Raspberry pi remotely to change settings and whatnot , install the VNC server on the pi , download VNC Viewer app for your Android or IOS device and create an account . This will enable you be fully in control wherever you are ; 
 When everything is set , all you have to do is type these commad to launch the web app : 
 ```
