@@ -1,0 +1,152 @@
+{% extends "layout.html" %}
+{% block body %}
+
+
+    <div class="row"
+         style="margin-bottom: 20px;text-align: center;/* padding-bottom: 30px; *//* border-bottom: 1px solid grey; */">
+        <span style="font-size: 6.4rem;text-align: center; display: inline-block ; color: white;">Raspberry Pi <img
+                src="../static/img/rasp-logo.png"
+                style="max-width: 85%;margin-top: -30px;max-height: 7rem;margin-right: 10px;"></span>
+        <span style="font-size: 3rem;display: inline-block; color: white; ">smart security camera <span class="glyphicon glyphicon-eye-open"></span> </span>
+    </div>
+    <hr style="margin-bottom: 50px; " class="row">
+    <div class="row">
+        <div class="col-md-8" style="margin-bottom: 30px;">
+            <img id="bg1" style="display: block;margin-left: auto;margin-right: auto;width: 95%;height: auto; "
+                 src="{{ url_for('video_feed1') }}">
+        </div>
+        <div class="col-md-4">
+            <h1 class=" " style="    margin-top: 0;    margin-bottom: 20px;"><span
+                    style="    margin-top: -20px;    margin-bottom: 20px; color: white;"> <small><span class="fa fa-cog fa-spin"></span></small> Settings </span></h1>
+
+            <form action="{{ url_for('index') }}" method="POST">
+                <div class="form-row">
+
+                    {#radio - classifer #}
+                    <div class="form-group">
+                        <label style= "color: #58B346;"> Specify the triggering event:</label>
+                        {% for classifier, attributes in classifiers.items() %}
+                            <div class="radio">
+                                <label style= "color: white;"><input type="radio" name="classifier"
+                                              value="{{ classifier }}"
+                                        {% if classifier == config.classifier_name %}
+                                              checked
+                                        {% endif %}
+                                >{{ attributes['description'] }}
+
+                                </label>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    {#checkbox - send_email_notifications #}
+                    <div class="form-group">
+                        <label style= "color: white;" class="form-check-label">
+                            <input type="checkbox" class="form-check-input "
+                                   name="send_email_notifications"
+                                   data-toggle="collapse" data-target="#form-email-collapse" aria-expanded="true"
+                                    {% if config.send_email_notifications %}
+                                   checked
+                                    {% endif %}
+                            >
+                            Send email notifications
+                        </label>
+                    </div>
+
+                    <div id="form-email-collapse" class="table-responsive collapse
+                        {% if config.send_email_notifications %}
+                           in
+                        {% endif %}"
+                    >
+
+                        {# text input - receiver_email_address #}
+                        <div class="form-group">
+                            <label style= "color: white;" for="emailReceiver">Receiver's email address</label>
+                            <input type="email" class="form-control" id="emailReceiver"
+                                   name="receiver_email_address"
+                                   aria-describedby="emailHelp" placeholder="Enter the receiver's email"
+                                   value="{{ config.receiver_email_address }}">
+                            <small style= "color: white;" id="emailHelp" class="form-text text-muted">Security alerts will be sent to this
+                                address
+                            </small>
+                        </div>
+
+                        {# text input - email_send_interval #}
+                        <div class="form-group">
+                            <label style= "color: white;" for="emailReceiver">Send alerts not more frequently than</label>
+                            <div class="col-10">
+                                <input class="form-control" type="number" id="example-number-input"
+                                       name="email_send_interval" placeholder="Enter number of seconds"
+                                       value="{{ config.email_send_interval }}">
+                                <small style= "color: white;" id="help" class="form-text text-muted">Enter number of seconds
+                                </small>
+                            </div>
+                        </div>
+
+                        {# text input - sender_email_address #}
+                        <div class="form-group">
+                            <label style= "color: white;" for="emailReceiver">Sender's email address</label>
+                            <input type="email" class="form-control" id="emailSender" name="sender_email_address"
+                                   aria-describedby="emailHelp"
+                                   placeholder="Sender@gmail.com"
+                                   value="{{ config.sender_email_address }}">
+                            <small style= "color: white;" id="emailHelp" class="form-text text-muted">Only Gmail service is supported. Make
+                                sure that
+                                <a href="https://support.google.com/accounts/answer/6010255">less secure apps can access
+                                    your Gmail account
+                                </a>
+                            </small>
+                        </div>
+
+                        {# text input - password #}
+                        <div class="form-group">
+                            <label style= "color: white;" for="exampleInputPassword1">Sender's email password</label>
+                            <input type="password" class="form-control" id="exampleInputPassword1"
+                                   name="sender_email_password"
+                                   placeholder="Password">
+                            <small style= "color: white;" id="emailHelp" class="form-text text-muted">your password will be encrypted.
+                                
+                            </small>
+                        </div>
+                    </div>
+
+                       {# button - advanced settings #}
+                       <button type="button" style=" border: none; background-color: #EE1818; margin: 0px 0px 20px;"
+                            class="btn btn-default btn-warning btn-block" data-toggle="collapse"
+                            data-target="#form-advanced-collapse" aria-expanded="true">
+                        Advanced settings
+                       </button>
+                       <div id="form-advanced-collapse" class="collapse" aria-expanded="false"
+                         style="height: 0px;">
+
+                       {#checkbox - live_preview_with_detection #}
+                       <div class="form-group has-error">
+                            <label class="form-check-label control-label">
+                                <input type="checkbox" class="form-check-input " name="live_preview_with_detection"
+                                        {% if config.live_preview_with_detection %}
+                                       checked
+                                        {% endif %}
+                                >
+                                Enable live preview with object detection <span class="glyphicon glyphicon-eye-open"></span> 
+                            </label>
+                            <br>
+                            <small id="emailHelp" class="form-text text-muted control-label">This may affect the frame rate <span
+                                    class="glyphicon glyphicon-alert"></span> 
+                            </small>
+                        </div>
+                    </div>
+
+
+                </div>
+                <button type="submit" class="btn btn-success btn-lg" style= "background-color: #0A1BB3;">Submit</button>
+            </form>
+
+        </div>
+
+    </div>
+    
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.5/lib/darkmode-js.min.js"></script>
+    <script>
+       new Darkmode();
+    </script>   
+{% endblock %}
