@@ -74,6 +74,8 @@ I used Haar cascade and LBP classifiers just to show the difference ( Haar casca
 
 ## receiving the security alerts :
 
+#### NOTE : make sure you "allow less secure apps to access gmail" for the account that you will use to send you alerts. it's in the gmail settings.
+
 The GUI enables you to specify the sender and receiver adresses ( gmail only compatible as we are using smtp) : 
 
 ![](Images/mail.png)
