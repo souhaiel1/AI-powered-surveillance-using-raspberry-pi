@@ -71,6 +71,7 @@ I used Haar cascade and LBP classifiers just to show the difference ( Haar casca
 ### Note : to view the selected classifier at work in real-time ; press on "advanced settings" and check 
 - [x] enable live preview with object detection
 #### to expirement with cameras other than the raspberry pi's , just change the argument in "video_capture = cv2.VideoCapture()" to suit your needs ( the source of frames in this project is a usb camera , hence "video_capture = cv2.VideoCapture(src=0)" .
+#### I also added the js darkmode file if you have a problem using the cdn link .
 
 
 ## receiving the security alerts :
