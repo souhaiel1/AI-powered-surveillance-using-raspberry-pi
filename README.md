@@ -100,6 +100,6 @@ python app.py
 ```
 
 #### Please note that I am kind of a beginner , so there's always room for improvement . Also thanks to everyone who's previous works inspired this project .
-#### I'm very excited for what's to come . Cheers brothers!
+#### I'm very excited for what's to come . Cheers !
 
 
